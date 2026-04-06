@@ -313,25 +313,31 @@ export default function Page() {
                 </div>
               )}
             </div>
-            <div className="flex justify-center items-center gap-4 mt-8">
+            <div className="flex justify-center items-center gap-3 mt-8">
               <button
                 disabled={page <= 1}
                 onClick={() => setPage((prev) => prev - 1)}
-                className="px-4 py-2 bg-white border rounded disabled:opacity-50"
+                className="px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface-variant flex items-center gap-2 hover:bg-surface-container-low transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Previous
+                <span className="material-symbols-outlined text-base">
+                  chevron_left
+                </span>
+                <span>Previous</span>
               </button>
 
-              <span className="text-sm font-medium">
+              <span className="text-base font-manrope font-bold text-on-surface">
                 Page {page} of {totalPages}
               </span>
 
               <button
                 disabled={page >= totalPages}
                 onClick={() => setPage((prev) => prev + 1)}
-                className="px-4 py-2 bg-white border rounded disabled:opacity-50"
+                className="px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface-variant flex items-center gap-2 hover:bg-surface-container-low transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Next
+                <span>Next</span>
+                <span className="material-symbols-outlined text-base">
+                  chevron_right
+                </span>
               </button>
             </div>
           </div>
