@@ -38,7 +38,7 @@ const TaskCard = ({
                 : "bg-pink-100 text-pink-600"
             }`}
           >
-            {task.is_completed ? "Completed" : ""}
+            {task.is_completed ? "Completed" : "In-Complete"}
           </span>
         </div>
 
