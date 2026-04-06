@@ -32,6 +32,10 @@ export default function Page() {
 
   useEffect(() => {
     const fetchTasks = async () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // 'smooth' for a nice slide, 'instant' for a fast jump
+      });
       setLoading(true);
       try {
         const response = await fetch(
@@ -316,8 +320,11 @@ export default function Page() {
             <div className="flex justify-center items-center gap-3 mt-8">
               <button
                 disabled={page <= 1}
-                onClick={() => setPage((prev) => prev - 1)}
-                className="px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface-variant flex items-center gap-2 hover:bg-surface-container-low transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => {
+                  setPage((prev) => prev - 1);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="flex items-center gap-2 px-6 py-3 bg-white border border-slate-300 rounded-lg text-slate-500 font-bold hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
               >
                 <span className="material-symbols-outlined text-base">
                   chevron_left
@@ -331,8 +338,11 @@ export default function Page() {
 
               <button
                 disabled={page >= totalPages}
-                onClick={() => setPage((prev) => prev + 1)}
-                className="px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-on-surface-variant flex items-center gap-2 hover:bg-surface-container-low transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => {
+                  setPage((prev) => prev + 1);
+                  window.scrollTo({ top: 0, behavior: "smooth" }); // Adds a smooth scroll to the top
+                }}
+                className="flex items-center gap-2 px-6 py-3 bg-white border border-slate-300 rounded-lg text-slate-500 font-bold hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
               >
                 <span>Next</span>
                 <span className="material-symbols-outlined text-base">
