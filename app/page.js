@@ -200,7 +200,7 @@ export default function Page() {
 
   return (
     <>
-      <main className="flex-1 px-8 md:px-16 pt-10 pb-20 bg-surface-container text-on-surface mt-16">
+      <main className="flex-1 px-8 md:px-16 pt-8 pb-20 bg-surface-container text-on-surface mt-16">
         {loading && (
           <div className="absolute inset-0 z-[100] flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm rounded-2xl">
             {/* High-visibility Spinner */}
@@ -215,15 +215,15 @@ export default function Page() {
             </p>
           </div>
         )}
-        <header className="mb-20">
-          <p className="font-manrope uppercase tracking-widest text-[0.6875rem] font-bold text-primary mb-4">
+        <header className="mb-8 px-6 md:ml-20 md:px-0">
+          <p className="font-manrope uppercase tracking-widest text-[0.6875rem] font-bold text-primary mb-2">
             WORKSPACE OVERVIEW
           </p>
           <h1 className="text-6xl md:text-7xl font-extrabold text-on-surface tracking-tighter mb-6 leading-none">
             Focus on the <br />
             Significant.
           </h1>
-          <div className="h-1 w-24 bg-primary mb-10"></div>
+          <div className="h-1 w-24 bg-primary mb-6"></div>
           <div className="flex flex-wrap gap-4 items-center">
             <button
               onClick={openAddModal}
@@ -244,7 +244,7 @@ export default function Page() {
         </header>
 
         <section className="max-w-6xl mx-auto">
-          <div className="flex justify-between items-end mb-10">
+          <div className="flex justify-between items-end mb-4">
             <h2 className="font-manrope text-3xl font-extrabold tracking-tight">
               Current Priorities
             </h2>
