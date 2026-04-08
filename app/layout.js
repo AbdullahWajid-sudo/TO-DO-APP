@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Inter, Manrope } from "next/font/google";
 import Navbar from "./components/Navbar";
+import AuthProvider from "./components/AuthProvider";
+import Footer from "./components/Footer";
 
 export const metadata = {
   title: "Pro To-Do App",
@@ -34,8 +36,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="antialiased font-body bg-background text-on-background">
-        <Navbar />
-        {children}
+        <AuthProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

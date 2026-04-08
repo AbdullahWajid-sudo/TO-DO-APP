@@ -132,14 +132,14 @@ const TaskCard = ({
           <div className="flex gap-3">
             <button
               onClick={() => onEdit(task)}
-              className="px-8 py-2.5 bg-primary text-white rounded-xl text-xs font-black uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/20"
+              className="px-8 py-2.5 bg-primary text-white rounded-xl text-xs cursor-pointer  uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/20"
             >
               Update
             </button>
             {!task.is_completed && (
               <button
                 onClick={() => onComplete(task.id)}
-                className="px-8 py-2.5 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-100 active:scale-95 transition-all"
+                className="px-8 py-2.5 bg-indigo-50 text-indigo-600 rounded-xl text-xs cursor-pointer  uppercase tracking-widest hover:bg-indigo-100 active:scale-95 transition-all"
               >
                 Complete
               </button>
@@ -148,7 +148,7 @@ const TaskCard = ({
 
           <button
             onClick={() => onDelete(task.id)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-red-50 text-red-600 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-red-100 active:scale-95 transition-all"
+            className="flex items-center gap-2 px-4 py-2.5 bg-red-50 text-red-600 cursor-pointer rounded-xl text-xs  uppercase tracking-widest hover:bg-red-100 active:scale-95 transition-all"
           >
             <span className="material-symbols-outlined text-[18px]">
               delete
