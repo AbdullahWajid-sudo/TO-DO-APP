@@ -1,9 +1,9 @@
-import NextAuth from "next-auth";
+import { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import prisma from "../../../lib/db";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -33,7 +33,7 @@ export const authOptions = {
           throw new Error("Invalid email or password");
         }
 
-        return { id: user.id, email: user.email, name: user.name };
+        return { id: user.id.toString(), email: user.email, name: user.name };
       },
     }),
   ],
@@ -45,8 +45,8 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }) {
-      if (token) {
-        session.user.id = token.id;
+      if (token && session.user) {
+        (session.user as any).id = token.id;
       }
       return session;
     },

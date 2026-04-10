@@ -1,9 +1,54 @@
 import Link from "next/link";
+import Image from "next/image";
+import { JSX } from "react";
 
-export default function Page() {
+const partners = [
+  {
+    id: 1,
+    name: "On-Site Pro",
+    src: "/homepage/next.png",
+    alt: "On-Site Pro contractor management logo",
+    width: 140, // Wider for text
+    height: 48, // Standard height
+  },
+  {
+    id: 2,
+    name: "Global Solutions",
+    src: "/homepage/vercel.png",
+    alt: "Global Solutions technology partner logo",
+    width: 160,
+    height: 48,
+  },
+  {
+    id: 3,
+    name: "Global Solutions",
+    src: "/homepage/Javascript.png",
+    alt: "Global Solutions technology partner logo",
+    width: 160,
+    height: 48,
+  },
+  {
+    id: 4,
+    name: "Global Solutions",
+    src: "/homepage/prisma.png",
+    alt: "Global Solutions technology partner logo",
+    width: 160,
+    height: 48,
+  },
+  {
+    id: 5,
+    name: "Global Solutions",
+    src: "/homepage/github.png",
+    alt: "Global Solutions technology partner logo",
+    width: 160,
+    height: 48,
+  },
+];
+
+export default function Page(): JSX.Element {
   return (
-    <main className="pt-30 pb-20">
-      <section className="max-w-[1350px] mx-auto px-6 mb-16">
+    <main className="pt-32 pb-20">
+      <section className="max-w-337 mx-auto px-6 mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-end">
           <div className="lg:col-span-7 mb-20 flex flex-col justify-start">
             <p className="uppercase tracking-widest text-[11px] font-headline font-bold text-primary mb-6">
@@ -33,53 +78,54 @@ export default function Page() {
             </div>
           </div>
           <div className="lg:col-span-4">
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/5] editorial-shadow bg-surface-container-low">
-              <img
-                className="w-full h-full object-cover grayscale-[0.2] contrast-[1.1]"
-                data-alt="Minimalist architectural workspace with clean desk, high-end monitor, soft natural light from large window, and indoor plants in a professional setting"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8yUAaDb72H4Y6trufyMhTHpM8lqR6ucmjw0rWSSWWzkYUSShpLAwHtQAMAOAD-4uxOJJ2ZHy7jxseIN3awCAUhrBd3CJd0S0wmedNdRfS1gmACGLLAN9Xf8d4PWgi8aQd7szae9duE72Sj-u3qUi5ojuVCpuI7RLBfjavSXEhk6PdGO92A38JBOVjKRc9mzmGbPxj3MkjG7bGOYzrNPuWL4pjpm5OaQ-voxOErYjqhQ9Ms3KQc-tlzCdjyillasJASDfR-1ZJETnE"
+            <div className="relative rounded-2xl overflow-hidden aspect-4/5 editorial-shadow bg-surface-container-low">
+              <Image
+                src="/homepage/banner.png"
+                alt="Minimalist architectural workspace"
+                fill
+                unoptimized
+                className="object-cover grayscale-[0.2] contrast-[1.1]"
+                priority
               />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-14 bg-surface-container-low mb-16">
-        <div className="max-w-[1440px] mx-auto px-10 text-center">
-          <p className="uppercase tracking-widest text-[11px] font-headline font-bold text-outline mb-12">
-            Trusted by world-className design teams
-          </p>
-          <div className="flex flex-wrap justify-center gap-20 opacity-80">
-            <img
-              alt="Framer"
-              className="h-30 w-auto"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp6l-AgPf_dUExmTcQsEN96jfZsnr26Szj4TQQhtBx86D1DJkBJAelVwVbIVETxhJn9X2f4OnrE3Upapq52SNIuB4Pbk-0htHtZCmDDMKoUTwyd2HIAH6PrfVPhB_DJgMeLdTDHJj2HR7so3hROhG1HMaTehaS5Hn_YM1OWD1Ohf0hca0q8BuTqRwMpVwkxjwSFUwIHjNPUQgDYPF4xVhgTvYQAOj9tz4AFR3O4ekiSrj25RCJL_tWY-99rLopIG0iA57RJTcEyv_i"
-            />
-            <img
-              alt="Vercel"
-              className="h-24 w-auto"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdJzlyWNBqAi05X1BFkjkLJQw5aVwO9IyoXI3fn4it5_-Xz7PX1F3ah4KE9_MfG5TMMzeK1SRBpcRxd6Rkx3_9vqIlDRLlFRxrMvP45K5X6vZmiMTxQMRPiwS6t-vnUJHY6lw35hHH_aP8hH-DxAnu6bILEdUFoeO5yCwdGtFQnnHV4GOFQJJjoSBIVRFyRO8O_-jCF_LNFZD23aTvtGPQCUamIQ_b7ZCNHVzDPhNlvAVZB5gd9SHXgdKXLSGETubfa3LpUnvEOqnM"
-            />
-            <img
-              alt="Linear"
-              className="h-20 w-auto"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj6CAiK10r2eoTOiXFDl9TUS48bdd2TIUHHy4mRguWLbVHRnh2240un_nwXwO28eIXx1E8d3JO6hsBhuzoES70PMc1-r1JkQUAb-MbDYGVxoPccSvI3LAlXOWPSjw0zz8kAlAgV0N6QGeu7l96iTEnraB1tp0v8abNBVBT96UAkOPRe8HIxM5NDzsgvnVcYzDr04SEEQoqpdFb7dhW_z71fTOK0_B2wc3E1NzuDyguJ4FxeFXdCy1TmidkjTkVki2Ee0-M79m48gXh"
-            />
-            <img
-              alt="Stripe"
-              className="h-24 w-auto"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuYYUdYqMj12Tuu0KS6ryoaBSgLy5uiDp3gcv6NWDlKhZlPP0Okaq6YybR_8Fch9-W40oMcQsjm99ovuhaDeikHC59hiL1tFlm4aGQ3lqUAndbf-NqFEVZZg7yASyb33cHho32XdgfqEyrn2XgfIAK6d19wMe4T_zh7As2jsozfwfxlOp_zN2K1u3YWIMBd8WeVZfk6TQ6P2j19NkUfoITZVDIXnVJMsrSAhDGZVN6h4M4cHf51vHLtlMDO4bmQ9Dj2Z8roYtktRNE"
-            />
-            <img
-              alt="Github"
-              className="h-30 w-auto"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7UXyCiBPuxpCnoQYhUofjYMPVZsam04GLoi706cY9d9Nu651pfXlwVqh8H1-5Y28sU1c-sdDyJ8SWHNhcRZFj0iN1ARVAR7VTin5_diJ0BYUvwSeFkKo6yN5Kilvfuxkx774kNGRZlmYWvYTC_yCuXErdg2TNyyxBvkHO24KKy-2_QkcjoZa_sZisQA9OAAevwi3BY8kaq8z3A4Ba6lvf3i-zfk2Dn5aTYot7Bv2ChUFGTkrmAaRYBwPV3Ato5eWdq2oUhUvHBPin"
-            />
+      <section className="bg-surface py-24 md:py-26 mb-12">
+        <div className="max-w-7xl mx-auto px-4">
+          {/* -- Section Header -- */}
+          <div className="text-center items-center mb-16 md:mb-16">
+            <p className="text-label text-on-surface-variant mx-auto font-medium tracking-widest uppercase mb-3">
+              Our Network
+            </p>
+            <h2 className="text-headline font-manrope font-bold text-on-surface text-3xl md:text-5xl lg:text-6xl max-w-[90vw] lg:max-w-7xl mx-auto text-center leading-tight">
+              Trusted by World-Class Design Teams
+            </h2>
+            <div className="h-1.5 w-24 bg-web mx-auto mt-6 rounded-full opacity-30" />
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-y-12 gap-x-12 items-center justify-items-center">
+            {partners.map((partner) => (
+              <div
+                key={partner.id}
+                className="group flex items-center justify-center p-4 h-24 w-full"
+              >
+                <Image
+                  src={partner.src}
+                  alt={partner.alt}
+                  width={partner.width}
+                  height={partner.height}
+                  className="h-18 w-auto object-contain opacity-80  group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300"
+                  priority
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="max-w-[1440px] mx-auto px-10 mb-20">
+      <section className="max-w-360 mx-auto px-10 mb-20">
         <div className="flex flex-col items-center text-center mb-20">
           <h2 className="font-headline font-extrabold text-5xl tracking-tight mb-6">
             Workflow as Art.
@@ -113,17 +159,23 @@ export default function Page() {
               </div>
               <div className="flex -space-x-2">
                 <div className="w-8 h-8 rounded-full border-2 border-surface overflow-hidden bg-slate-200">
-                  <img
+                  <Image
+                    alt=""
+                    width={100} // Explicit width in pixels
+                    height={24} // Explicit height in pixels
                     className="w-full h-full object-cover"
                     data-alt="Portrait of a female professional designer"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqFedG7fbSIEKOb858SB5jmDIlr5PkSjDe0n-Oryqzi87TZJz-A41LJlQK1iYwTfCi4bnEolgmHuUSRY8Xewf-RXKUoL7mhElzhxqMHOzpA3aYjjNcYJpmp9hFqp92RNDdsGNRLbvljuB7EpvWArypV4xrJj_r3m0j0SvWa6aS52yQA3kUGxbieOC8M1NzH7tiRFzzufBmapMzo_3MFdHRF2Tg3QfQMD4qHZpym5uLdMnz_PsD1hrB2719ecjCgQsUYdvKFOlNu626"
+                    src="/homepage/FemaleAvatar.png"
                   />
                 </div>
                 <div className="w-8 h-8 rounded-full border-2 border-surface overflow-hidden bg-slate-200">
-                  <img
+                  <Image
+                    alt=""
+                    width={100} // Explicit width in pixels
+                    height={24} // Explicit height in pixels
                     className="w-full h-full object-cover"
                     data-alt="Portrait of a male product architect"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCytA6JGC37RpnbIjkF-hCbJq9JzrkQ7bXpnaZXYZ_VIMikWTuhRrVszqQUfHxNW3BQH6qBYjmfZnGi3SNAGsqIalKZc977rtFW-q83mK9DfzO7YX9A7t4YXCFB1Oeuf5wi9gQDTsdL_8UArlg5z-a3W_6Gb5qQ8Pwq-9gTBkjBa8AKzaPlE5uPrHpWRcrkX6CsvoJvbzYqYMMP27ORxi9QZSUGJzq6sgWim-vrmAkZFsbUX6BmhJmGS1HpNz0BjYQYdpfm01tSBKKv"
+                    src="/homepage/MaleAvatar.png"
                   />
                 </div>
               </div>
@@ -164,10 +216,14 @@ export default function Page() {
                 </div>
               </div>
               <div className="flex items-center space-x-3">
-                <img
+                <Image
+                  alt=""
+                  width={100} // Explicit width in pixels
+                  height={24} // Explicit height in pixels
+                  // className="h-6 w-auto opacity-50 grayscale"
                   className="w-16 h-12 object-cover rounded-lg shadow-sm"
                   data-alt="Wide shot of a modern glass skyscraper reflecting the blue sky at sunset"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDa9mynOCrdHxbmORPLEi-7QAH8-yz3DgMwSljyfMzGn1Q6bXpA5NU1uNHTkgV-MnpIJTVOCDwP3aVvoQo34ygasVmkrJcgdR235cbeyRO-vTJIlD9cox3vqsiBz-9f_BAPGrPNqCJGNQqRIxWe5ZM5wcII56WlVoocajrakdYIqjB9LbU1nqQFxVLyFAvHBNA-5Xx4vM-vu4GHZZTQ2FdCJT3fbYy-z3s5YN6jcMVy7qvizTSUmIInsaYdqdGek81LqY4JbCfNr40G"
+                  src="/homepage/building.png"
                 />
                 <span className="material-symbols-outlined text-outline">
                   drag_indicator
@@ -178,31 +234,36 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="max-w-[1440px] mx-auto px-10 mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 h-[700px]">
-          <div className="md:col-span-8 bg-surface-container-high  rounded-[2rem] p-12 flex flex-col justify-between overflow-hidden relative">
-            <div className="relative  z-10">
+      <section className="max-w-360 mx-auto px-10 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-175">
+          <div className="md:col-span-6 bg-surface-container-high rounded-4xl p-12 flex flex-col justify-between overflow-hidden relative">
+            {/* -- Left Side Text (Unchanged) -- */}
+            <div className="relative z-10">
               <span className="material-symbols-outlined text-primary text-4xl mb-6">
                 view_quilt
               </span>
-              <div className="bg-white/10 backdrop-blur-md p-6 max-w-[350px] rounded-2xl">
-                <h3 className="font-headline font-bold  text-4xl mb-4">
+              <div className="bg-white/10 backdrop-blur-md p-6 max-w-87 rounded-2xl">
+                <h3 className="font-headline font-bold text-4xl mb-4">
                   Editorial Layouts
                 </h3>
-
-                <p className=" text-lg  max-w-sm">
+                <p className="text-lg max-w-sm">
                   Every list is composed with the balance of a high-end
                   magazine. Visual rhythm meets task management.
                 </p>
               </div>
             </div>
-            <img
-              className="absolute bottom-0 right-0 w-3/4 rounded-tl-3xl shadow-2xl translate-x-10 translate-y-10"
-              data-alt="High-resolution mockup of a digital editorial interface showing bold typography and asymmetric grid layout"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRMgX-71QhZ5oS3NH19bQnm001UZcLWxvuNjFuCrlHWVZYtPVx7x88lcNn9ZjZ-gOa4OaK1Ati5FsbOS6aUh84bCkkGZidKEpfDgayqhpQUhpImQLa6hnFEHqwZNxc2h2sPbpq_Q2HgFBsobyMGDHo3JRoB4sIWzAxn_gCk7Ou9zOmK3yTg0sscyKtb43rE9XQmODym4YyUPle50R-fA3CFJrly2MYFwcHU-JqMiAnjjcEd9C6hSyyJXxqr5Y-H2jJq2R2gsFLiWAf"
+
+            <Image
+              src="/homepage/Mobile.png"
+              alt="Mobile task list preview"
+              width={1000}
+              height={1500}
+              unoptimized
+              priority
+              className="absolute bottom-0 right-0 aspect-ratio:3/4 h-auto w-100 md:w-100 lg:w-100 object-contain shadow-2xl rounded-tl-3xl translate-x-4 translate-y-1"
             />
           </div>
-          <div className="md:col-span-4 bg-surface-container   rounded-[2rem] p-12 flex flex-col justify-center">
+          <div className="md:col-span-6 bg-surface-container   rounded-4xl p-12 flex flex-col justify-center">
             <span className="material-symbols-outlined text-primary text-4xl mb-6">
               target
             </span>
@@ -214,7 +275,7 @@ export default function Page() {
               designed for speed.
             </p>
           </div>
-          <div className="md:col-span-4 bg-surface-container-high rounded-[2rem] p-12 flex flex-col justify-end">
+          <div className="md:col-span-4 bg-surface-container-high rounded-4xl p-12 flex flex-col justify-end">
             <span className="material-symbols-outlined text-primary text-4xl mb-6">
               hourglass_empty
             </span>
@@ -226,7 +287,7 @@ export default function Page() {
               your attention span.
             </p>
           </div>
-          <div className="md:col-span-8 bg-surface-container-low rounded-[2rem] p-12 border border-outline-variant/10 flex items-center justify-between overflow-hidden">
+          <div className="md:col-span-8 bg-surface-container-low rounded-4xl p-12 border border-outline-variant/10 flex items-center justify-between overflow-hidden">
             <div className="max-w-sm">
               <h3 className="font-headline font-bold text-4xl mb-4">
                 Seamless Sync
@@ -254,9 +315,9 @@ export default function Page() {
 
       <section className="py-40 bg-on-surface text-white overflow-hidden relative">
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-          <div className="absolute top-1/2 left-1/4 w-[800px] h-[800px] bg-primary rounded-full blur-[160px]"></div>
+          <div className="absolute top-1/2 left-1/4 w-200 h-200 bg-primary rounded-full blur-[160px]"></div>
         </div>
-        <div className="max-w-[1440px] mx-auto px-10 relative z-10">
+        <div className="max-w-360 mx-auto px-10 relative z-10">
           <span className="material-symbols-outlined text-primary text-6xl mb-12">
             format_quote
           </span>
@@ -267,10 +328,13 @@ export default function Page() {
           </blockquote>
           <div className="flex items-center space-x-6">
             <div className="w-16 h-16 rounded-full overflow-hidden">
-              <img
+              <Image
+                alt=""
+                width={100} // Explicit width in pixels
+                height={24} // Explicit height in pixels
                 className="w-full h-full object-cover"
                 data-alt="Close-up portrait of a female lead designer with an elegant and confident expression"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuANX66KItCcKv82QLtUIMc5SqTxrnMqcCRuQP_bZyvAmyM16w8d6BNTbMVnGSpLWtMbvV_zd4GaEvrMCdJzMuhRGSe_NGfD8gJtxzF9kPCXhi7twqb0PDtufcza1J4w2v7pWmXbMiy48ls2stmquEDxhpvDoNpFfsOKSAsur_Z6toOj6SisLxZCMd0oP4IC_MB1myzYppH_UkpCc2VUMfkms94Rng7h4lA9w4zbpxKwO7XpJullmCJpUfAuRu7zqFqXCde6G4SQJ3Co"
+                src="/homepage/femaleavatar2.png"
               />
             </div>
             <div>
@@ -283,7 +347,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="max-w-[1440px] mx-auto px-10 py-20">
+      <section className="max-w-360 mx-auto px-10 py-20">
         <div className="text-center mb-20">
           <h2 className="font-headline font-extrabold text-5xl tracking-tight mb-6">
             Simple, Transparent.
@@ -293,7 +357,7 @@ export default function Page() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
-          <div className="bg-surface-container-low p-12 rounded-[2rem] editorial-shadow border border-outline-variant/10 flex flex-col">
+          <div className="bg-surface-container-low p-12 rounded-4xl editorial-shadow border border-outline-variant/10 flex flex-col">
             <h3 className="font-headline font-bold text-2xl mb-2">
               Individual
             </h3>
@@ -304,7 +368,7 @@ export default function Page() {
               <span className="text-5xl font-extrabold font-headline">$12</span>
               <span className="text-outline ml-2">/ month</span>
             </div>
-            <ul className="space-y-4 mb-12 flex-grow">
+            <ul className="space-y-4 mb-12 grow">
               <li className="flex items-center space-x-3 text-on-surface-variant">
                 <span className="material-symbols-outlined text-primary text-xl">
                   check_circle
@@ -329,7 +393,7 @@ export default function Page() {
             </button>
           </div>
 
-          <div className="bg-on-surface text-white p-12 rounded-[2rem] editorial-shadow flex flex-col relative overflow-hidden">
+          <div className="bg-on-surface text-white p-12 rounded-4xl editorial-shadow flex flex-col relative overflow-hidden">
             <div className="absolute top-0 right-0 bg-primary text-[10px] uppercase font-black tracking-widest px-6 py-2 rounded-bl-xl">
               Popular
             </div>
@@ -339,7 +403,7 @@ export default function Page() {
               <span className="text-5xl font-extrabold font-headline">$39</span>
               <span className="text-outline ml-2">/ month</span>
             </div>
-            <ul className="space-y-4 mb-12 flex-grow">
+            <ul className="space-y-4 mb-12 grow">
               <li className="flex items-center space-x-3 text-slate-300">
                 <span className="material-symbols-outlined text-primary text-xl">
                   check_circle
@@ -365,14 +429,14 @@ export default function Page() {
                 <span>Priority Studio Support</span>
               </li>
             </ul>
-            <button className="w-full hero-gradient border border-white/30 py-4 cursor-pointer rounded-xl text-white font-bold hover:bg-white/10 transition-all duration-300active:scale-95 transition-transform">
+            <button className="w-full hero-gradient border border-white/30 py-4 cursor-pointer rounded-xl text-white font-bold hover:bg-white/10  duration-300 active:scale-95 transition-transform">
               Choose Studio
             </button>
           </div>
         </div>
       </section>
 
-      <section className="max-w-[1440px] mx-auto px-10 mb-10">
+      <section className="max-w-360 mx-auto px-10 mb-10">
         <div className="hero-gradient rounded-[3rem] p-20 text-center bg-on-surface text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96  rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
           <div className="relative z-10 max-w-3xl mx-auto">

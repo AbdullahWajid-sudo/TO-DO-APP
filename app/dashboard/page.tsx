@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, JSX } from "react";
 import { useRouter } from "next/navigation";
 import TaskModal from "../components/TaskModal";
 import TaskCard from "../components/TaskCard";
+import { Task, NewTask } from "../types/Types";
 
 const tagColors = [
   "bg-tertiary-fixed text-on-tertiary-fixed-variant",
@@ -13,35 +14,46 @@ const tagColors = [
   "bg-pink-100 text-pink-800",
   "bg-yellow-100 text-yellow-800",
   "bg-indigo-100 text-indigo-800",
+  "bg-lime-100 text-lime-800",
+  "bg-amber-100 text-amber-800",
   "bg-red-100 text-red-800",
   "bg-orange-100 text-orange-800",
   "bg-teal-100 text-teal-800",
 ];
 
-export default function Page() {
+interface ApiResponse {
+  success: boolean;
+  tasks: Task[];
+  pagination: {
+    totalPages: number;
+  };
+  task: Task;
+}
+
+export default function Page(): JSX.Element {
   const router = useRouter();
-  const [tasks, setTasks] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState("all");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTask, setSelectedTask] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [filter, setFilter] = useState<string>("all");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
 
   useEffect(() => {
     const fetchTasks = async () => {
       window.scrollTo({
         top: 0,
-        behavior: "smooth", // 'smooth' for a nice slide, 'instant' for a fast jump
+        behavior: "smooth",
       });
       setLoading(true);
       try {
         const response = await fetch(
           `/api/tasks?page=${page}&limit=5&search=${debouncedSearch}`,
         );
-        const data = await response.json();
+        const data: ApiResponse = await response.json();
         if (data.success) {
           setTasks(data.tasks);
           setTotalPages(data.pagination.totalPages);
@@ -58,7 +70,7 @@ export default function Page() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(searchTerm);
-      setPage(1); // Reset to page 1 when searching
+      setPage(1);
     }, 500);
 
     return () => clearTimeout(timer);
@@ -75,8 +87,7 @@ export default function Page() {
     setIsModalOpen(true);
   };
 
-  // Open modal for EDIT
-  const openEditModal = (task) => {
+  const openEditModal = (task: Task) => {
     setSelectedTask(task);
     setIsModalOpen(true);
   };
@@ -85,9 +96,7 @@ export default function Page() {
     setIsModalOpen(false);
   };
 
-  //
-
-  const handleComplete = async (taskId) => {
+  const handleComplete = async (taskId: string) => {
     try {
       const response = await fetch(`/api/tasks/${taskId}`, {
         method: "PATCH",
@@ -98,7 +107,6 @@ export default function Page() {
       });
 
       if (response.ok) {
-        // Update the task in the list
         setTasks(
           tasks.map((task) =>
             task.id === taskId ? { ...task, is_completed: true } : task,
@@ -111,14 +119,13 @@ export default function Page() {
     }
   };
 
-  const handleDelete = async (taskId) => {
+  const handleDelete = async (taskId: string) => {
     try {
       const response = await fetch(`/api/tasks/${taskId}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
-        // Remove the task from the list
         setTasks(tasks.filter((task) => task.id !== taskId));
         router.refresh();
       }
@@ -127,56 +134,41 @@ export default function Page() {
     }
   };
 
-  const handleSubmit = async (formData) => {
+  const handleSubmit = async (formData: NewTask) => {
     try {
-      if (selectedTask) {
-        // Update existing task
-        const response = await fetch(`/api/tasks/${selectedTask.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+      const url = selectedTask ? `/api/tasks/${selectedTask.id}` : "/api/tasks";
+      const method = selectedTask ? "PUT" : "POST";
 
-        if (response.ok) {
-          const data = await response.json();
-          setTasks(
-            tasks.map((task) =>
-              task.id === selectedTask.id ? data.task : task,
-            ),
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data: ApiResponse = await response.json();
+        if (selectedTask) {
+          setTasks((prev) =>
+            prev.map((t) => (t.id === selectedTask.id ? data.task : t)),
           );
-          router.refresh();
+        } else {
+          setTasks((prev) => [data.task, ...prev]);
         }
-      } else {
-        // Add new task
-        const response = await fetch("/api/tasks", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setTasks([data.task, ...tasks]);
-          router.refresh();
-        }
+        router.refresh();
       }
     } catch (error) {
       console.error("Error submitting task:", error);
     }
   };
 
-  const activeTasks = tasks.filter((t) => !t.is_completed).length;
-  const dueToday = tasks.filter((t) => {
+  const activeTasks: number = tasks.filter((t) => !t.is_completed).length;
+  const dueToday: number = tasks.filter((t) => {
     if (!t.due_date) return false;
     const today = new Date().toDateString();
     return new Date(t.due_date).toDateString() === today;
   }).length;
 
-  const formatDate = (date) => {
+  const formatDate = (date: string | null) => {
     if (!date) return "No due date";
     return new Intl.DateTimeFormat("en-US", {
       month: "short",
@@ -185,14 +177,14 @@ export default function Page() {
     }).format(new Date(date));
   };
 
-  const categoryColors = {
+  const categoryColors: Record<string, string> = {
     web: "bg-web text-white",
     general: "bg-general text-white",
     admin: "bg-admin text-white",
     android: "bg-android text-white",
   };
 
-  const priorityColors = {
+  const priorityColors: Record<string, string> = {
     low: "bg-surface-container-high text-on-surface-variant",
     medium: "bg-secondary-fixed text-on-secondary-fixed-variant",
     high: "bg-error-container text-on-error-container",
@@ -202,7 +194,7 @@ export default function Page() {
     <>
       <main className="flex-1 px-8 md:px-16 pt-8 pb-20 bg-surface-container text-on-surface mt-16">
         {loading && (
-          <div className="absolute inset-0 z-[100] flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm rounded-2xl">
+          <div className="absolute inset-0 z-100 flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm rounded-2xl">
             {/* High-visibility Spinner */}
             <div className="relative h-12 w-12">
               {/* Background Ring */}
@@ -219,7 +211,7 @@ export default function Page() {
           <p className="font-manrope uppercase tracking-widest text-[0.6875rem] font-bold text-primary mb-2">
             WORKSPACE OVERVIEW
           </p>
-          <h1 className="text-5xl md:text-6xl font-bold text-on-surface tracking-tighter mb-6 leading-none">
+          <h1 className="text-5xl md:text-6xl font-bold text-on-surface tracking-tighter mb-12 leading-none">
             Focus on the <br />
             Significant.
           </h1>
@@ -332,7 +324,7 @@ export default function Page() {
                 <span>Previous</span>
               </button>
 
-              <span className="text-base font-manrope text-xs text-on-surface">
+              <span className="font-manrope text-xs text-on-surface">
                 Page {page} of {totalPages}
               </span>
 

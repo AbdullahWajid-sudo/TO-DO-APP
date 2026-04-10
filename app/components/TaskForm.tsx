@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { JSX, useState } from "react";
+import { Task, NewTask, FormFields, TaskFormProps } from "../types/Types";
 
 const tagColors = [
   "bg-tertiary-fixed text-on-tertiary-fixed-variant",
@@ -16,17 +17,17 @@ const tagColors = [
 ];
 
 export default function TaskForm({
-  initialData = null,
+  initialData,
   onSubmit,
   submitButtonText = "Submit",
   isEditMode = false,
-}) {
-  const [tags, setTags] = useState(initialData?.tags || []);
-  const [customTagInput, setCustomTagInput] = useState("");
-  const [selectedPriority, setSelectedPriority] = useState(
+}: TaskFormProps): JSX.Element {
+  const [tags, setTags] = useState<string[]>(initialData?.tags || []);
+  const [customTagInput, setCustomTagInput] = useState<string>("");
+  const [selectedPriority, setSelectedPriority] = useState<string>(
     initialData?.priority?.toLowerCase() || "low",
   );
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormFields>({
     title: initialData?.title || "",
     description: initialData?.description || "",
     assigned_by: initialData?.assigned_by || "",
@@ -36,14 +37,11 @@ export default function TaskForm({
     due_date: initialData?.due_date ? initialData.due_date.split("T")[0] : "",
   });
 
-  const handlePriorityChange = (e) => {
+  const handlePriorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const priority = e.target.value;
     setSelectedPriority(priority);
-
-    // Add priority tag if not already in tags
     const priorityTag = `Priority ${priority.charAt(0).toUpperCase() + priority.slice(1)}`;
     if (!tags.includes(priorityTag)) {
-      // Remove any existing priority tag first
       const filteredTags = tags.filter((tag) => !tag.startsWith("Priority "));
       setTags([...filteredTags, priorityTag]);
     }
@@ -56,26 +54,32 @@ export default function TaskForm({
     }
   };
 
-  const handleRemoveTag = (tagToRemove) => {
+  const handleRemoveTag = (tagToRemove: string) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name as keyof FormFields]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    await onSubmit({
+    const submissionData: NewTask = {
       ...formData,
       tags,
-      priority:
-        selectedPriority.charAt(0).toUpperCase() + selectedPriority.slice(1),
-    });
+      priority: (selectedPriority.charAt(0).toUpperCase() +
+        selectedPriority.slice(1)) as Task["priority"],
+      is_completed: initialData?.is_completed ?? false,
+    };
+    onSubmit(submissionData);
   };
 
   return (
@@ -99,7 +103,7 @@ export default function TaskForm({
           Description
         </label>
         <textarea
-          className="w-full bg-surface-container-low border-none rounded-lg p-4 text-on-surface placeholder-slate-400 font-medium min-h-[120px] resize-none"
+          className="w-full bg-surface-container-low border-none rounded-lg p-4 text-on-surface placeholder-slate-400 font-medium min-h-30 resize-none"
           placeholder="Describe the task requirements and objectives..."
           name="description"
           value={formData.description}
@@ -112,7 +116,7 @@ export default function TaskForm({
           <label className="block font-manrope uppercase tracking-[0.05em] text-[0.6875rem] font-bold text-slate-500">
             Assigned By
           </label>
-          
+
           <div className="relative">
             <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">
               person
@@ -189,7 +193,6 @@ export default function TaskForm({
           </div>
         </div>
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-3">
           <label className="block font-manrope uppercase tracking-[0.05em] text-[0.6875rem] font-bold text-slate-500">
@@ -285,10 +288,9 @@ export default function TaskForm({
           </div>
         )}
       </div>
-
       <div className="flex flex-col sm:flex-row gap-4 pt-8 border-t border-outline-variant/20">
         <button
-          className="flex-1 bg-gradient-to-r from-primary to-primary-container text-white font-bold py-4 px-8 rounded-lg transition-all hover:brightness-110 active:scale-95 duration-200"
+          className="flex-1 bg-linear-to-r from-primary to-primary-container text-white font-bold py-4 px-8 rounded-lg transition-all hover:brightness-110 active:scale-95 duration-200"
           type="submit"
         >
           {submitButtonText}

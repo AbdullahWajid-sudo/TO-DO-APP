@@ -1,15 +1,21 @@
- "use client";
+"use client";
 
-import { useState, useEffect } from "react";
+import { useState, JSX } from "react";
 import TaskForm from "./TaskForm";
+import { NewTask, TaskModalProps } from "../types/Types";
 
-export default function TaskModal({ isOpen, onClose, task = null, onSubmit }) {
-  const [loading, setLoading] = useState(false);
+export default function TaskModal({
+  isOpen,
+  onClose,
+  task = null,
+  onSubmit,
+}: TaskModalProps): JSX.Element | null {
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSubmit = async (formData) => {
+  const handleSubmit = async (data: NewTask) => {
     setLoading(true);
     try {
-      await onSubmit(formData);
+      await onSubmit(data);
       onClose();
     } catch (error) {
       console.error("Error submitting task:", error);
@@ -22,15 +28,11 @@ export default function TaskModal({ isOpen, onClose, task = null, onSubmit }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
       />
-
-      {/* Modal */}
       <div className="relative bg-surface-container-lowest rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-        {/* Header */}
         <div className="sticky top-0 z-10 bg-surface-container-lowest border-b border-outline-variant/20 px-8 py-6 rounded-t-2xl">
           <div className="flex items-center justify-between">
             <div>
@@ -53,8 +55,6 @@ export default function TaskModal({ isOpen, onClose, task = null, onSubmit }) {
             </button>
           </div>
         </div>
-
-        {/* Content */}
         <div className="p-8">
           {loading ? (
             <div className="flex items-center justify-center py-12">

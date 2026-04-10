@@ -1,7 +1,28 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../lib/db";
 
-export async function GET(request, { params }) {
+interface RouteParams {
+  params: Promise<{ id: string }>;
+}
+
+
+interface UpdateTaskBody {
+  title?: string;
+  description?: string;
+  assigned_by?: string;
+  category?: string;
+  priority?: string;
+  tags?: string[];
+  due_date?: string;
+  image_url?: string;
+  link_url?: string;
+}
+
+interface PatchTaskBody {
+  is_completed: boolean;
+}
+
+export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
     const task = await prisma.task.findUnique({
@@ -11,7 +32,7 @@ export async function GET(request, { params }) {
     if (!task) {
       return NextResponse.json(
         { success: false, error: "Task not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -20,15 +41,16 @@ export async function GET(request, { params }) {
     console.error("Error fetching task:", error);
     return NextResponse.json(
       { success: false, error: "Failed to fetch task" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
-export async function PUT(request, { params }) {
+export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
-    const body = await request.json();
+    const body: UpdateTaskBody = await request.json();
+
     const {
       title,
       description,
@@ -61,15 +83,15 @@ export async function PUT(request, { params }) {
     console.error("Error updating task:", error);
     return NextResponse.json(
       { success: false, error: "Failed to update task" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
-export async function PATCH(request, { params }) {
+export async function PATCH(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
-    const body = await request.json();
+    const body: PatchTaskBody = await request.json();
     const { is_completed } = body;
 
     const task = await prisma.task.update({
@@ -82,12 +104,12 @@ export async function PATCH(request, { params }) {
     console.error("Error updating task:", error);
     return NextResponse.json(
       { success: false, error: "Failed to update task" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
-export async function DELETE(request, { params }) {
+export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
 
@@ -100,7 +122,7 @@ export async function DELETE(request, { params }) {
     console.error("Error deleting task:", error);
     return NextResponse.json(
       { success: false, error: "Failed to delete task" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
